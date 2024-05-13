@@ -8,14 +8,14 @@ import "./page.css";
 export default function Home() {
   // var map = L.map('map').setView([51.505, -0.09], 13);
 
-  const Map = useMemo(() => dynamic(
-    () => import('./MapCentered')
-    .then((mod)=>mod.default),
-    {
-      loading: () => <p>A map is loading</p>,
-      ssr: false
-    }
-  ), [])
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("./MapCentered").then((mod) => mod.default), {
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+      }),
+    [],
+  );
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-12">
@@ -45,8 +45,11 @@ export default function Home() {
       </div>
 
       <div className=" relative mx-5 my-[100px] grid lg:min-h-[500px] w-full lg:max-w-5xl lg:w-full lg:grid-cols-2 place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] ">
-        <div id="map" className="h-[450px] lg:h-full min-w-[300px] w-4/5 lg:max-w-2xl lg:w-9/10 z-[1]">
-          <Map longitude={51.505} latitude={-0.09} />
+        <div
+          id="map"
+          className="h-[450px] lg:h-full min-w-[300px] w-4/5 lg:max-w-2xl lg:w-9/10 z-[1]"
+        >
+          <Map longitude={-61} latitude={-21} />
         </div>
 
         <Image

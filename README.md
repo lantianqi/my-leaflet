@@ -35,9 +35,8 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-
-
 ## References
+
 https://next-leaflet-starter.netlify.app/
 
 https://github.com/PaulLeCam/react-leaflet/issues/45#issuecomment-291002970
@@ -46,3 +45,6 @@ https://medium.com/@tomisinabiodun/displaying-a-leaflet-map-in-nextjs-85f86fccc1
 
 https://medium.com/@eric.burel/how-to-get-rid-of-window-is-not-defined-and-hydration-mismatch-errors-in-next-js-567cc51b4a17
 
+https://stackoverflow.com/questions/43015854/large-dataset-of-markers-or-dots-in-leaflet
+
+https://jsfiddle.net/sgu5dc0k/
