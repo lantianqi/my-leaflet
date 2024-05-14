@@ -3,7 +3,40 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 
 import Image from "next/image";
-import "./page.css";
+import "./style/page.css";
+
+import SignupForm from "./components/Form";
+
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+async function getData() {
+  const res = await fetch("https://api.example.com/...");
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+let heavyLoadData = [];
+
+function getRandomLatLng() {
+  return [-9 + 180 * Math.random(), -18 + 360 * Math.random()];
+}
+
+for (var i = 0; i < 10000; i += 1) {
+  heavyLoadData.push({
+    key: i,
+    id: "test",
+    geo: getRandomLatLng(),
+  });
+}
 
 export default function Home() {
   // var map = L.map('map').setView([51.505, -0.09], 13);
@@ -11,7 +44,10 @@ export default function Home() {
   const Map = useMemo(
     () =>
       dynamic(
-        () => import("./MapCenteredPlainLeaflet").then((mod) => mod.default),
+        () =>
+          import("./components/MapCenteredPlainLeaflet").then(
+            (mod) => mod.default,
+          ),
         {
           // dynamic(() => import("./MapCentered").then((mod) => mod.default), {
           loading: () => <p>A map is loading</p>,
@@ -55,15 +91,15 @@ export default function Home() {
         >
           <Map longitude={-61} latitude={-21} />
         </div>
-
-        <Image
+        <SignupForm />
+        {/* <Image
           className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
           src="/next.svg"
           alt="Next.js Logo"
           width={180}
           height={37}
           priority
-        />
+        /> */}
       </div>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">

@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 require("leaflet.markercluster/dist/leaflet.markercluster");
-import "./page.css";
+import "../style/page.css";
 require("leaflet/dist/leaflet.css"); // inside .js file
 require("react-leaflet-markercluster/dist/styles.min.css"); // inside .js
 
@@ -21,6 +21,13 @@ for (var i = 0; i < 10000; i += 1) {
     geo: getRandomLatLng(),
   });
 }
+
+const getData = async () => {
+  const res = await fetch("/api/db");
+  res.then((data) => {
+    console.log(data.json());
+  });
+};
 
 export default function MyMap() {
   useEffect(() => {
@@ -41,6 +48,7 @@ export default function MyMap() {
     });
 
     var myRenderer = L.canvas({ padding: 0.5 });
+
     heavyLoadData.map((location) => {
       L.circleMarker(location.geo, {
         color: "darkgreen",
