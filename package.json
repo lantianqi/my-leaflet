@@ -21,6 +21,7 @@
     "react-leaflet-markercluster": "^3.0.0-rc1"
   },
   "devDependencies": {
+    "@types/leaflet.markercluster": "^1.5.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",

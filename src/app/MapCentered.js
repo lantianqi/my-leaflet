@@ -1,9 +1,18 @@
 // import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Tooltip,
+  Popup,
+  Circle,
+} from "react-leaflet";
+import { CircleMarker } from "react-leaflet/CircleMarker";
 import MarkerClusterGroup from "@changey/react-leaflet-markercluster";
 
 import "./page.css";
 import "leaflet/dist/leaflet.css";
+import { Crimson_Pro } from "next/font/google";
 require("leaflet/dist/leaflet.css"); // inside .js file
 require("react-leaflet-markercluster/dist/styles.min.css"); // inside .js
 
@@ -38,9 +47,12 @@ export default function MyMap({ longitude, latitude }) {
       <MarkerClusterGroup>
         {heavyLoadData.map((location) => {
           return (
-            <Marker position={location.geo}>
-              <Tooltip direction="top">{location.id}</Tooltip>
-            </Marker>
+            // <Marker position={location.geo}>
+            //   <Tooltip direction="top">{location.id}</Tooltip>
+            // </Marker>
+            <CircleMarker center={location.geo}>
+              <Popup>{location.id}</Popup>
+            </CircleMarker>
           );
         })}
       </MarkerClusterGroup>

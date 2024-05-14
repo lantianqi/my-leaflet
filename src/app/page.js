@@ -10,10 +10,14 @@ export default function Home() {
 
   const Map = useMemo(
     () =>
-      dynamic(() => import("./MapCentered").then((mod) => mod.default), {
-        loading: () => <p>A map is loading</p>,
-        ssr: false,
-      }),
+      dynamic(
+        () => import("./MapCenteredPlainLeaflet").then((mod) => mod.default),
+        {
+          // dynamic(() => import("./MapCentered").then((mod) => mod.default), {
+          loading: () => <p>A map is loading</p>,
+          ssr: false,
+        },
+      ),
     [],
   );
 
