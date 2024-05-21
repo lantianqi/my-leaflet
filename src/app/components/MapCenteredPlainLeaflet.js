@@ -8,30 +8,25 @@ import "../style/page.css";
 require("leaflet/dist/leaflet.css"); // inside .js file
 require("react-leaflet-markercluster/dist/styles.min.css"); // inside .js
 
-let heavyLoadData = [];
+// let heavyLoadData = [];
 
-function getRandomLatLng() {
-  return [-9 + 180 * Math.random(), -18 + 360 * Math.random()];
-}
+// function getRandomLatLng() {
+//   return [-9 + 180 * Math.random(), -18 + 360 * Math.random()];
+// }
 
-for (var i = 0; i < 10000; i += 1) {
-  heavyLoadData.push({
-    key: i,
-    id: "test",
-    geo: getRandomLatLng(),
-  });
-}
+// for (var i = 0; i < 10000; i += 1) {
+//   heavyLoadData.push({
+//     key: i,
+//     id: "test",
+//     geo: getRandomLatLng(),
+//   });
+// }
 
-const getData = async () => {
-  const res = await fetch("/api/db");
-  res.then((data) => {
-    console.log(data.json());
-  });
-};
-
-export default function MyMap() {
+export default function MyMap({
+  data
+}) {
   useEffect(() => {
-    const map = L.map("map").setView([38.423733, 27.142826], 4);
+    const map = L.map("map").setView([38.423733, 27.142826], 1);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: "© OpenStreetMap",
@@ -49,14 +44,21 @@ export default function MyMap() {
 
     var myRenderer = L.canvas({ padding: 0.5 });
 
-    heavyLoadData.map((location) => {
-      L.circleMarker(location.geo, {
+    data.map((location) => {
+      const popupContent = "<div>"
+        + location.properties.userName
+        + "<br />"
+        + location.properties.userMessage
+        + "</div>"
+      L.circleMarker([
+        location.geometry.coordinates[1],
+        location.geometry.coordinates[0]], {
         color: "darkgreen",
         radius: 10,
         renderer: myRenderer,
       })
         .addTo(markers)
-        .bindPopup(location.id);
+        .bindPopup(popupContent);
     });
     map.addLayer(markers);
 

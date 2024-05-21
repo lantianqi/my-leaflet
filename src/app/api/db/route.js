@@ -13,8 +13,8 @@ export async function GET(request) {
       // database and collection code goes here
       // insert code goes here
       // display the results of your operation
-      const db = client.db("my-map");
-      const coll = db.collection("docs");
+      const db = client.db("feedback-db");
+      const coll = db.collection("feedback-collection-new");
       const result = await coll.find({}).toArray();
       return result;
     } finally {
@@ -22,11 +22,10 @@ export async function GET(request) {
       await client.close();
     }
   }
-  const result = await run().catch(console.dir);
+  const data = await run().catch(console.dir);
   return NextResponse.json({
-    message: "Hello World",
     status: 200,
-    result,
+    data,
   });
 }
 

@@ -1,9 +1,11 @@
 "use client";
 
 // import MyMap from "./MapCenteredPlainLeaflet";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import dynamic from "next/dynamic";
+import "../style/page.css";
 
-function Map(props) {
+function DynamicMap(props) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,8 +19,8 @@ function Map(props) {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        setData(data);
+      .then((res) => {
+        setData(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -31,15 +33,24 @@ function Map(props) {
     updateData();
   }, [props.dep]);
 
+  const MyDynamicMap = useMemo(() => dynamic(
+    () => import("./MapCenteredPlainLeaflet")
+      .then((mod) => mod.default), {
+    loading: () => <p>A map is loading</p>,
+    ssr: false,
+  }
+  ), [],
+  );
+
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <MyDynamicMap data={data}/>
+  );
 }
 
-export default Map;
+export default DynamicMap;

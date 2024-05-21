@@ -6,6 +6,7 @@ import Image from "next/image";
 import "./style/page.css";
 
 import SignupForm from "./components/Form";
+import DynamicMap from "./components/DynamicMap";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -89,7 +90,8 @@ export default function Home() {
           id="map"
           className="h-[450px] lg:h-full min-w-[300px] w-4/5 lg:max-w-2xl lg:w-9/10 z-[1]"
         >
-          <Map longitude={-61} latitude={-21} />
+          {/* <Map longitude={-61} latitude={-21} /> */}
+          <DynamicMap />
         </div>
         <SignupForm />
         {/* <Image
