@@ -66,7 +66,7 @@ export default function MyMap({
       map.off();
       map.remove();
     };
-  }, []);
+  });
 
   return <div id="map"></div>;
 }

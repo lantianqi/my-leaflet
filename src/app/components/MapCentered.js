@@ -25,6 +25,7 @@ function getRandomLatLng() {
 for (var i = 0; i < 1000; i += 1) {
   // 100k points
   heavyLoadData.push({
+    key: i,
     id: "test",
     geo: getRandomLatLng(),
   });
@@ -50,7 +51,7 @@ export default function MyMap({ longitude, latitude }) {
             // <Marker position={location.geo}>
             //   <Tooltip direction="top">{location.id}</Tooltip>
             // </Marker>
-            <CircleMarker center={location.geo}>
+            <CircleMarker center={location.geo} key={location.key}>
               <Popup>{location.id}</Popup>
             </CircleMarker>
           );
