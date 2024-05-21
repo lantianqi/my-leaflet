@@ -36,8 +36,18 @@ const SignupForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
-      });
-      console.log(res);
+      })
+        .then((res) => { return res.json(); })
+        .then((res) => {
+          if (res.status == 200) {
+            console.log(res);
+            alert("Submission successful!\nRefresh the page to see your message on the map!");
+            formik.resetForm();
+          }
+        })
+        .catch((error) => {
+          console.error("There is an error, ", error);
+        })
     },
   });
 
@@ -116,6 +126,7 @@ const SignupForm = () => {
           id="latitude"
           name="latitude"
           type="number"
+          readOnly
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.latitude}
@@ -132,6 +143,7 @@ const SignupForm = () => {
           id="longitude"
           name="longitude"
           type="number"
+          readOnly
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.longitude}

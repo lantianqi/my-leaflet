@@ -14,7 +14,7 @@ export async function GET(request) {
       // insert code goes here
       // display the results of your operation
       const db = client.db("feedback-db");
-      const coll = db.collection("feedback-collection-new");
+      const coll = db.collection("feedback-collection1");
       const result = await coll.find({}).toArray();
       return result;
     } finally {
@@ -37,9 +37,23 @@ export async function POST(request) {
       // database and collection code goes here
       // insert code goes here
       // display the results of your operation
-      const db = client.db("my-map");
-      const coll = db.collection("docs");
-      const result = await coll.insertOne(data);
+      const db = client.db("feedback-db");
+      const coll = db.collection("feedback-collection1");
+      const doc = {
+        // _id: doc._id,
+        type: "Feature",
+        geometry: {
+          "type": "Point",
+          "coordinates": [data.longitude, data.latitude]
+        },
+        properties: {
+          userCity: data.city,
+          userRegion: data.region,
+          userName: data.name,
+          userMessage: data.message
+        }
+      };
+      const result = await coll.insertOne(doc);
       // display the results of your operation
       console.log(result);
     } finally {
